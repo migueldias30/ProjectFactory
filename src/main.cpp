@@ -4,24 +4,35 @@
 // put function declarations here:
 TFT_eSPI tft = TFT_eSPI();
 
-void setup()
-{
+void setup() {
   Serial.begin(115200);
+  delay(50);
+  Serial.println("startup");
   tft.init();
-  tft.setRotation(1); // Adjust rotation if needed
-  tft.fillScreen(TFT_BLACK);
-  tft.setTextColor(TFT_WHITE);
+  Serial.println("tft.init done");
+  tft.setRotation(1);        // 0..3, teste qual funciona melhor
+  tft.fillScreen(TFT_WHITE); // fundo branco
+
+  // Primeiro quadrado pequeno
+  int x = 70, y = 70, size = 20;
+  tft.fillRect(x, y, size, size, TFT_BLACK);
+
+  // Deslocamento de pixels (diferença)
+  int delta = 16;
+  tft.drawRect(x + delta, y + delta, size, size, TFT_RED);
+
+  // Texto inicial para confirmar
+  tft.setTextColor(TFT_BLACK);
   tft.setTextSize(2);
-  tft.println("Hello World!");
-  tft.println("Display WPSH412 funcionando!");
+  tft.setCursor(10, 10);
+  tft.println("DIF PXL: 16");
 }
 
-void loop()
-{
-  // put your main code here, to run repeatedly:
-  delay(1000);
-  tft.fillScreen(TFT_BLACK);
-  tft.setCursor(0, 0);
-  tft.println("Texto atualizado");
-  tft.println(millis() / 1000);
+void loop() {
+  // Contador simples para mostrar vida do sketch
+  tft.setTextColor(TFT_BLUE, TFT_WHITE); // background branco
+  tft.setTextSize(2);
+  tft.setCursor(10, 40);
+  tft.printf("Segundos: %4u", millis() / 1000);
+  delay(500);
 }

@@ -9,6 +9,9 @@
 #define TFT_SCLK 18
 #define TFT_MISO 19
 
+// Driver escolhido para o módulo Velleman 2.8" (ILI9341 compatível)
+#define ILI9341_DRIVER
+
 #define LOAD_GLCD
 #define LOAD_FONT2
 #define LOAD_FONT4
